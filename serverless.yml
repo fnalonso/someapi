@@ -1,0 +1,60 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: someapi
+
+provider:
+  name: aws
+  runtime: python3.8
+  timeout: 3
+  memorySize: 128
+  versionFunction: false
+  endpointType: regional
+  apiKeys:
+    - ${opt:stage}-key
+
+
+functions:
+  retrieve-base-a:
+    handler: src.base_a.handler
+    events:
+      - http:
+          path: data/base-a/{cpf}
+          method: get
+          private: true
+          request:
+            parameters:
+              paths:
+                cpf: true # Marca o parametro do cpf como opcional na chamada
+  retrieve-base-b:
+    handler: src.base_b.handler
+    events:
+      - http:
+          path: data/base-b/{cpf}
+          method: get
+          private: true
+          request:
+            parameters:
+              paths:
+                cpf: true # Marca o parametro do cpf como opcional na chamada
+  retrieve-base-c:
+    handler: src.base_c.handler
+    events:
+      - http:
+          path: data/base-c/{cpf}
+          method: get
+          private: true
+          request:
+            parameters:
+              paths:
+                cpf: true # Marca o parametro do cpf como opcional na chamada
